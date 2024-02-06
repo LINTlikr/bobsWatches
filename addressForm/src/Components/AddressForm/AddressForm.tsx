@@ -1,23 +1,24 @@
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
 import "./AddressForm.css";
 import location_icon from "../Assets/location-icon.png";
 import { Autocomplete } from "@react-google-maps/api";
 import axios from "axios";
 
-let savedAddress = "";
-
-axios.get("http://localhost:8080").then((data: any) => {
-  if (
-    data.data !== undefined &&
-    data.data[0] !== undefined &&
-    data.data[0].address !== undefined
-  ) {
-    savedAddress = data.data[0].address;
-  }
-});
-
 export const AddressForm = () => {
-  const [address, setAddress] = useState(savedAddress);
+  const [address, setAddress] = useState("");
+
+  useEffect(() => {
+    axios.get("http://localhost:8080").then((data: any) => {
+      if (
+        data.data !== undefined &&
+        data.data[0] !== undefined &&
+        data.data[0].address !== undefined
+      ) {
+        setAddress(data.data[0].address);
+      }
+    });
+  }, []);
+
   const [searchResult, setSearchResult] = useState<any>("");
 
   const handleSave = () => {
