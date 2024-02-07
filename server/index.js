@@ -8,12 +8,24 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use(cors());
 
+
+/* dev */
+/*
 const db = mysql.createPool({
     connectionLimit: 10,
     host: 'localhost',
     user: 'root',
     password: 'spyder11',
     database: 'mydb'
+})
+*/
+
+const db = mysql.createPool({
+    connectionLimit: 10,
+    host: 'sql3.freemysqlhosting.net',
+    user: 'sql3682717',
+    password: 'TG88p8sIlD',
+    database: 'sql3682717'
 })
 
 app.post('/save', (req, res) => {
